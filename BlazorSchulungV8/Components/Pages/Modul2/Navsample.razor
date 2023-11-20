@@ -1,0 +1,22 @@
+﻿@page "/nav"
+@page "/nav1"
+@inject NavigationManager NavMan
+<h3>Navsample</h3>
+<a href="/nav1">nav1</a>
+<a href="/nav">nav</a>
+<hr />
+@NavMan.Uri
+<button @onclick="click">nav Event registrieren</button>
+@code {
+
+    void click()
+    {
+        NavMan.LocationChanged += Huch;
+    }
+    void Huch(object? sender,LocationChangedEventArgs args)
+    {
+        
+
+    }
+
+}

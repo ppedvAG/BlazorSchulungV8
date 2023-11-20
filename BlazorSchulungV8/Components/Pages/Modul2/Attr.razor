@@ -9,15 +9,18 @@
     <div @onclick="click">inhalt</div>
     <hr />
     @Eingabe
-    <Component MyProperty="42" @ref="comp1"></Component>
+    <Component  @ref="comp1" MyProperty="@var1" ></Component>
 @code {
     string Eingabe;
     ElementReference input1;
     Component comp1;
+    int var1;
     void click(MouseEventArgs args)
     {
         input1.FocusAsync();
         comp1.MyProperty = 99;
-       
+        Eingabe = "99";
+        var1 = 99;
+
     }
 }

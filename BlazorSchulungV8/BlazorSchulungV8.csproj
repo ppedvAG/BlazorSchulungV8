@@ -6,4 +6,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Components\Pages\Modul1\" />
+    <Folder Include="Components\Pages\Modul3\" />
+    <Folder Include="Components\Pages\Modul4\" />
+    <Folder Include="Components\Pages\Modul5\" />
+    <Folder Include="Components\Pages\Modul6\" />
+    <Folder Include="Components\Pages\Modul7\" />
+    <Folder Include="Components\Pages\Modul8#\" />
+  </ItemGroup>
+
 </Project>

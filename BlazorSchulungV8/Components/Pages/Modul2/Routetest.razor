@@ -1,6 +1,11 @@
-﻿@page "/counter"
+﻿@page "/counter1"
+@page "/franz/{variable:int?}"
 <h3>Routetest</h3>
-
+@(i+1)
+<h3>@variable</h3>
 @code {
+    int i;
+    [Parameter]
+    public int variable { get; set; }
 
 }

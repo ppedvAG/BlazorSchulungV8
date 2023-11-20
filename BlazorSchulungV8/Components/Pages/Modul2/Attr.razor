@@ -1,0 +1,23 @@
+﻿@page "/attr"
+@using Microsoft.AspNetCore.Authorization
+@* @attribute [Authorize]
+ *@
+ 
+ <h3>Attr</h3>
+ <input @bind="Eingabe" @ref="input1" />
+ <button @onclick="click">click</button>
+    <div @onclick="click">inhalt</div>
+    <hr />
+    @Eingabe
+    <Component MyProperty="42" @ref="comp1"></Component>
+@code {
+    string Eingabe;
+    ElementReference input1;
+    Component comp1;
+    void click(MouseEventArgs args)
+    {
+        input1.FocusAsync();
+        comp1.MyProperty = 99;
+       
+    }
+}

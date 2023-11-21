@@ -1,0 +1,37 @@
+﻿@page "/repeater"
+@using Models
+@inject NorthwindContext db
+<h3>UseRepeater</h3>
+<table>
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Firmenname</th>
+        </tr>
+    </thead>
+    <tbody>
+        <Repeater ModelType="Customer" Context="item" SelectMethod="GetCustomers">
+            <ItemTemplate>
+                <tr>
+                    <td>@item.CustomerId </td>
+                    <td>@item.CompanyName</td>
+                </tr>
+            </ItemTemplate>
+            <EmptyTemplate>
+                <tr><td colspan="2">keine Daten</td></tr>
+            </EmptyTemplate>
+        </Repeater>
+    </tbody>
+
+</table>
+
+@code {
+    public List<Customer> GetCustomers()
+
+    {
+
+        return db.Customers.ToList();
+
+    }
+}

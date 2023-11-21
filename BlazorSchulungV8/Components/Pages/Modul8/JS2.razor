@@ -1,0 +1,14 @@
+﻿@page "/js2"
+@using RazorClassLibrary1
+@inject IJSRuntime JsRuntime
+<h3>JS2</h3>
+<button @onclick="click">click</button>
+@Ausgabe
+@code {
+    string Ausgabe;
+    async Task click()
+    {
+        var lib = new ExampleJsInterop(JsRuntime);
+       Ausgabe =await lib.Prompt("gibs mir");
+    }
+}

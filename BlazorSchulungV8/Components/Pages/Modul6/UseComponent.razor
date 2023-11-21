@@ -1,0 +1,19 @@
+﻿@page "/comp"
+<h3>UseComponent</h3>
+
+<CascadingValue Value="@("hannes")"  >
+    <CascadingValue Value="42">
+        <Component @ref="Comp1" MyProperty="42" StringProperty="42" hannes="toll" class="btn ">
+           @*  <input @bind="Eingabe"/>
+            <button>misting</button> *@
+            <Head></Head>
+            <Body></Body>
+        </Component>
+    </CascadingValue>
+</CascadingValue>
+@code {
+    Component Comp1;
+    string Eingabe;
+
+
+}

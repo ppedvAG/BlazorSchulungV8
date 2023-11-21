@@ -1,0 +1,33 @@
+﻿<h3>Component</h3>
+<div class="card shadow">@Head</div>
+@MyProperty
+<div @attributes="@AllProperty"></div>
+<hr />
+@* <div class="card shadow">@ChildContent</div> *@
+
+
+<div class="card shadow">@Body</div>
+
+@code {
+    [Parameter]
+    public int MyProperty { get; set; }
+    [Parameter]
+    [EditorRequired]
+    public string StringProperty { get; set; }
+    [Parameter(CaptureUnmatchedValues =true)]
+    public Dictionary<string,object> AllProperty { get; set; }
+
+    [CascadingParameter]
+    public int CascadingProperty { get; set; }
+    [CascadingParameter]
+    public string CascadingStringProperty { get; set; } 
+
+    // [Parameter]
+    // public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public RenderFragment Head { get; set; }
+    [Parameter]
+    public RenderFragment Body { get; set; }
+   
+}

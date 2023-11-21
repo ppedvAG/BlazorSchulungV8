@@ -5,15 +5,16 @@
 </button>
 
 
-<Modalppedv @ref="modal1" Titel="Hallo Welt!" OnSave="save">
+<Modalppedv @ref="modal1" Titel="Hallo Welt!" OnSave="save" FocusElement="input1">
     <div><label>Eingabe</label>
-        <input class="form-control" @bind="Eingabe" />
+        <input class="form-control" @bind="Eingabe"  @ref="input1"/>
     </div>
 </Modalppedv>
 
 @code {
     Modalppedv modal1;
     string Eingabe;
+    ElementReference input1;
     void Toggle()
     {
         modal1.Show();

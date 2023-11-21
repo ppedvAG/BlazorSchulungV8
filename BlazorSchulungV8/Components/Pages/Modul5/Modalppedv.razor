@@ -31,9 +31,18 @@
 
     [Parameter]
     public EventCallback OnSave { get; set; }
+    [Parameter]
+    public ElementReference FocusElement { get; set; }
     public void Show()
     {
         IsShow = !IsShow;
         StateHasChanged();
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (IsShow)
+        {
+            FocusElement.FocusAsync();
+        }
     }
 }

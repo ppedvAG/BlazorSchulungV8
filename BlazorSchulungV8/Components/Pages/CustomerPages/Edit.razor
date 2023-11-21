@@ -1,0 +1,131 @@
+﻿@page "/Customers/edit"
+@inject BlazorSchulungV8.Models.NorthwindContext DB
+@using BlazorSchulungV8.Models
+@inject NavigationManager NavigationManager
+@using Microsoft.EntityFrameworkCore
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h4>Customer</h4>
+<hr />
+@if (Customer is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Customer" OnValidSubmit="UpdateCustomer" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <input type="hidden" name="Customer.CustomerId" value="@Customer.CustomerId" />
+                <div class="mb-3">
+                    <label for="companyname" class="form-label">CompanyName:</label>
+                    <InputText id="companyname" @bind-Value="Customer.CompanyName" class="form-control" />
+                    <ValidationMessage For="() => Customer.CompanyName" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="contactname" class="form-label">ContactName:</label>
+                    <InputText id="contactname" @bind-Value="Customer.ContactName" class="form-control" />
+                    <ValidationMessage For="() => Customer.ContactName" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="contacttitle" class="form-label">ContactTitle:</label>
+                    <InputText id="contacttitle" @bind-Value="Customer.ContactTitle" class="form-control" />
+                    <ValidationMessage For="() => Customer.ContactTitle" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <InputText id="address" @bind-Value="Customer.Address" class="form-control" />
+                    <ValidationMessage For="() => Customer.Address" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="city" class="form-label">City:</label>
+                    <InputText id="city" @bind-Value="Customer.City" class="form-control" />
+                    <ValidationMessage For="() => Customer.City" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="region" class="form-label">Region:</label>
+                    <InputText id="region" @bind-Value="Customer.Region" class="form-control" />
+                    <ValidationMessage For="() => Customer.Region" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="postalcode" class="form-label">PostalCode:</label>
+                    <InputText id="postalcode" @bind-Value="Customer.PostalCode" class="form-control" />
+                    <ValidationMessage For="() => Customer.PostalCode" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="country" class="form-label">Country:</label>
+                    <InputText id="country" @bind-Value="Customer.Country" class="form-control" />
+                    <ValidationMessage For="() => Customer.Country" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone:</label>
+                    <InputText id="phone" @bind-Value="Customer.Phone" class="form-control" />
+                    <ValidationMessage For="() => Customer.Phone" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="fax" class="form-label">Fax:</label>
+                    <InputText id="fax" @bind-Value="Customer.Fax" class="form-control" />
+                    <ValidationMessage For="() => Customer.Fax" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/customers">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    public string CustomerId { get; set; }
+
+    [SupplyParameterFromForm]
+    public Customer? Customer { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Customer ??= await DB.Customers.FirstOrDefaultAsync(m => m.CustomerId == CustomerId);
+
+        if (Customer is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more details, see https://aka.ms/RazorPagesCRUD.
+    public async Task UpdateCustomer()
+    {
+        DB.Attach(Customer!).State = EntityState.Modified;
+
+        try
+        {
+            await DB.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!CustomerExists(Customer!.CustomerId))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/customers");
+    }
+
+    bool CustomerExists(string customerid)
+    {
+        return DB.Customers.Any(e => e.CustomerId == customerid);
+    }
+}

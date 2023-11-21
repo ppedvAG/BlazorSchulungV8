@@ -1,0 +1,31 @@
+﻿@page "/customers"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject BlazorSchulungV8.Models.NorthwindContext DB
+@using BlazorSchulungV8.Models
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="customers/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="DB.Customers">
+    <PropertyColumn Property="customer => customer.CompanyName" />
+    <PropertyColumn Property="customer => customer.ContactName" />
+    <PropertyColumn Property="customer => customer.ContactTitle" />
+    <PropertyColumn Property="customer => customer.Address" />
+    <PropertyColumn Property="customer => customer.City" />
+    <PropertyColumn Property="customer => customer.Region" />
+    <PropertyColumn Property="customer => customer.PostalCode" />
+    <PropertyColumn Property="customer => customer.Country" />
+    <PropertyColumn Property="customer => customer.Phone" />
+    <PropertyColumn Property="customer => customer.Fax" />
+
+    <TemplateColumn Context="customer">
+        <a href="@($"customers/edit?customerid={customer.CustomerId}")">Edit</a> |
+        <a href="@($"customers/details?customerid={customer.CustomerId}")">Details</a> |
+        <a href="@($"customers/delete?customerid={customer.CustomerId}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
